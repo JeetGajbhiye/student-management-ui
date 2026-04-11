@@ -1,6 +1,6 @@
-import api from './axiosInstance';
-export const getStudents = (params) => api.get('/students', { params });
-export const getStudent = (id) => api.get(`/students/${id}`);
-export const createStudent = (data) => api.post('/students', data);
-export const updateStudent = (id, data) => api.put(`/students/${id}`, data);
-export const deleteStudent = (id) => api.delete(`/students/${id}`);
+import api from './axiosInstance'
+export const getStudents  = (p) => api.get('/students', { params: p })
+export const getStudent   = (id) => api.get(`/students/${id}`)
+export const createStudent = (d) => api.post('/students', d)
+export const updateStudent = (id, d) => api.put(`/students/${id}`, d)
+export const deleteStudent = (id) => api.delete(`/students/${id}`)

@@ -21,9 +21,9 @@ export default function DashboardPage() {
 
   useEffect(() => {
     getDashboardStats()
-      .then(res => setStats(res.data))
+      .then(res => setStats(res.data?.data ?? res.data ?? {}))
       .catch(() => setStats({}))
-      .finally(() => setLoading(false));
+      .finally(() => setLoading(false))
   }, []);
 
   if (loading) return <LoadingSpinner />;

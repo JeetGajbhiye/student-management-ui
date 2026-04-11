@@ -1,5 +1,5 @@
-import api from './axiosInstance';
-export const getEnrollments = (params) => api.get('/enrollments', { params });
-export const createEnrollment = (data) => api.post('/enrollments', data);
-export const updateEnrollment = (id, data) => api.put(`/enrollments/${id}`, data);
-export const deleteEnrollment = (id) => api.delete(`/enrollments/${id}`);
+import api from './axiosInstance'
+export const getEnrollments   = (p) => api.get('/enrollments', { params: p })
+export const createEnrollment = (d) => api.post('/enrollments', d)
+export const updateEnrollment = (id, d) => api.put(`/enrollments/${id}`, d)
+export const deleteEnrollment = (id) => api.delete(`/enrollments/${id}`)

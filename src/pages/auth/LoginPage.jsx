@@ -12,21 +12,23 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+    e.preventDefault()
+    setLoading(true)
     try {
-      const res = await login(form);
+      const res = await login(form)
+      const data = res.data.data  // ← note: response is wrapped in "data"
       loginUser({
-        username: res.data.username,
-        email: res.data.email,
-        roles: res.data.roles,
-      }, res.data.token);
-      toast.success(`Welcome back, ${res.data.username}!`);
-      navigate('/dashboard');
+        id: data.id,
+        username: data.username,
+        email: data.email,
+        roles: data.roles,
+      }, data.accessToken)  // ← token is "accessToken" not "token"
+      toast.success(`Welcome back, ${data.username}!`)
+      navigate('/dashboard')
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Invalid credentials');
+      toast.error(err.response?.data?.message || 'Invalid credentials')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
   };
 

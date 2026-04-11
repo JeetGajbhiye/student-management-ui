@@ -24,13 +24,16 @@ export default function StudentsPage() {
   const [saving, setSaving] = useState(false);
 
   const fetchAll = async () => {
-    setLoading(true);
+    setLoading(true)
     try {
-      const [sRes, dRes] = await Promise.all([getStudents(), getDepartments()]);
-      setStudents(sRes.data?.content ?? sRes.data ?? []);
-      setDepartments(dRes.data?.content ?? dRes.data ?? []);
-    } catch { toast.error('Failed to load data'); }
-    finally { setLoading(false); }
+      const [sRes, dRes] = await Promise.all([getStudents(), getDepartments()])
+      // unwrap the "data" wrapper
+      const sData = sRes.data?.data ?? sRes.data
+      const dData = dRes.data?.data ?? dRes.data
+      setStudents(sData?.content ?? (Array.isArray(sData) ? sData : []))
+      setDepartments(dData?.content ?? (Array.isArray(dData) ? dData : []))
+    } catch { toast.error('Failed to load data') }
+    finally { setLoading(false) }
   };
 
   useEffect(() => { fetchAll(); }, []);

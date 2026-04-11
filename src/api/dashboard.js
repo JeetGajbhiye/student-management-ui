@@ -1,2 +1,2 @@
-import api from './axiosInstance';
-export const getDashboardStats = () => api.get('/dashboard/stats');
+import api from './axiosInstance'
+export const getDashboardStats = () => api.get('/dashboard/stats')
