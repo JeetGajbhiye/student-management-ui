@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import LoadingSpinner from '../components/LoadingSpinner'; // adjust path if needed
+import LoadingSpinner from '../../components/LoadingSpinner'; // adjust path if needed
 import api from '../services/api'; // we'll create this next
 
 export default function DashboardPage() {
