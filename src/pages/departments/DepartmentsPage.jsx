@@ -21,13 +21,13 @@ export default function DepartmentsPage() {
   const fetchAll = async () => {
     setLoading(true)
     try {
-      const [sRes, dRes] = await Promise.all([getStudents(), getDepartments()])
-      // unwrap the "data" wrapper
-      const sData = sRes.data?.data ?? sRes.data
-      const dData = dRes.data?.data ?? dRes.data
-      setStudents(sData?.content ?? (Array.isArray(sData) ? sData : []))
-      setDepartments(dData?.content ?? (Array.isArray(dData) ? dData : []))
-    } catch { toast.error('Failed to load data') }
+      const res = await getDepartments()
+      const raw = res.data?.data ?? res.data
+      setDepartments(Array.isArray(raw) ? raw : raw?.content ?? [])
+    } catch (e) {
+      console.error(e)
+      toast.error('Failed to load departments')
+    }
     finally { setLoading(false) }
   }
 

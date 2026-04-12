@@ -21,8 +21,11 @@ export default function DashboardPage() {
 
   useEffect(() => {
     getDashboardStats()
-      .then(res => setStats(res.data?.data ?? res.data ?? {}))
-      .catch(() => setStats({}))
+      .then(res => {
+        const raw = res.data?.data ?? res.data
+        setStats(raw ?? {})
+      })
+      .catch((e) => { console.error(e); setStats({}) })
       .finally(() => setLoading(false))
   }, []);
 

@@ -31,13 +31,15 @@ export default function GradesPage() {
   const fetchAll = async () => {
     setLoading(true)
     try {
-      const [sRes, dRes] = await Promise.all([getStudents(), getDepartments()])
-      // unwrap the "data" wrapper
-      const sData = sRes.data?.data ?? sRes.data
-      const dData = dRes.data?.data ?? dRes.data
-      setStudents(sData?.content ?? (Array.isArray(sData) ? sData : []))
-      setDepartments(dData?.content ?? (Array.isArray(dData) ? dData : []))
-    } catch { toast.error('Failed to load data') }
+      const [gRes, eRes] = await Promise.all([getGrades(), getEnrollments()])
+      const gRaw = gRes.data?.data ?? gRes.data
+      const eRaw = eRes.data?.data ?? eRes.data
+      setGrades(Array.isArray(gRaw) ? gRaw : gRaw?.content ?? [])
+      setEnrollments(Array.isArray(eRaw) ? eRaw : eRaw?.content ?? [])
+    } catch (e) {
+      console.error(e)
+      toast.error('Failed to load grades')
+    }
     finally { setLoading(false) }
   }
 

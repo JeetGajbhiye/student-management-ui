@@ -24,13 +24,19 @@ export default function EnrollmentsPage() {
   const fetchAll = async () => {
     setLoading(true)
     try {
-      const [sRes, dRes] = await Promise.all([getStudents(), getDepartments()])
-      // unwrap the "data" wrapper
-      const sData = sRes.data?.data ?? sRes.data
-      const dData = dRes.data?.data ?? dRes.data
-      setStudents(sData?.content ?? (Array.isArray(sData) ? sData : []))
-      setDepartments(dData?.content ?? (Array.isArray(dData) ? dData : []))
-    } catch { toast.error('Failed to load data') }
+      const [eRes, sRes, cRes] = await Promise.all([
+        getEnrollments(), getStudents(), getCourses()
+      ])
+      const eRaw = eRes.data?.data ?? eRes.data
+      const sRaw = sRes.data?.data ?? sRes.data
+      const cRaw = cRes.data?.data ?? cRes.data
+      setEnrollments(Array.isArray(eRaw) ? eRaw : eRaw?.content ?? [])
+      setStudents(Array.isArray(sRaw) ? sRaw : sRaw?.content ?? [])
+      setCourses(Array.isArray(cRaw) ? cRaw : cRaw?.content ?? [])
+    } catch (e) {
+      console.error(e)
+      toast.error('Failed to load enrollments')
+    }
     finally { setLoading(false) }
   }
 
