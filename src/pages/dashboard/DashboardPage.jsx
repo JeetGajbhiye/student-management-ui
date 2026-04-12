@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import LoadingSpinner from '../../components/LoadingSpinner'; // adjust path if needed
-import api from '../services/api'; // we'll create this next
+import api from '../../services/api'; // we'll create this next
 
 export default function DashboardPage() {
   const [stats, setStats] = useState(null);
@@ -27,7 +26,13 @@ export default function DashboardPage() {
     fetchStats();
   }, []);
 
-  if (loading) return <LoadingSpinner />;
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
   if (error) return <div className="text-red-500">{error}</div>;
 
   return (
