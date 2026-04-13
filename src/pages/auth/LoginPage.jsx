@@ -16,13 +16,21 @@ export default function LoginPage() {
     setLoading(true)
     try {
       const res = await login(form)
-      const data = res.data.data  // ← note: response is wrapped in "data"
+      const data = res.data?.data || res.data
+      const token = data?.accessToken || data?.token
+
+      if (!token) {
+        toast.error('Login failed: no token received')
+        return
+      }
+
       loginUser({
         id: data.id,
         username: data.username,
         email: data.email,
-        roles: data.roles,
-      }, data.accessToken)  // ← token is "accessToken" not "token"
+        roles: data.roles || [],
+      }, token)
+
       toast.success(`Welcome back, ${data.username}!`)
       navigate('/dashboard')
     } catch (err) {
